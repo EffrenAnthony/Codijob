@@ -4,7 +4,8 @@
   "description": "Proyecto Back-End - Codijob",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./dist/index.js"
   },
   "keywords": [
     "codijob",
@@ -15,7 +16,10 @@
   "author": "Anthony Peña",
   "license": "MIT",
   "dependencies": {
+    "@types/express": "^4.16.1",
+    "@types/node": "^11.10.4",
     "express": "^4.16.4",
     "nodemon": "^1.18.10"
-  }
+  },
+  "devDependencies": {}
 }
