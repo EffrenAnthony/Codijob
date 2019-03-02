@@ -1,4 +1,6 @@
-import { Router, Request, Response} from 'express';
+import { Router} from 'express';
+// import { controller_home } from '../controllers/home';
+var controller_home = require('../controllers/home');
 
 // Hacemos el enrutador exportable para que el index.ts pueda importarlo
 export var router_home = Router();
@@ -7,13 +9,10 @@ export var router_home = Router();
 // '/' hace referencia a localhost, es decir que tambien puede ser '/direccion', y en el navegador se pondria 'localhost:3700/direccion'
 // request => son los datos que el servidor recive de quien lo invoca
 // response => objeto de respuesta a quien invoca la ruta
-router_home.get('/', function(req:Request, res:Response){
-    res.send("Hola soy el servidor =) --> 'El peluca Sape'")
-});
+router_home.get('/', controller_home.home);
+
 // esta es otra ruta, pero sigue siendo router_home porque el apilará todas las rutas
-router_home.get('/otraRuta', function(req:Request, res:Response){
-    res.send("Otra ruta'")
-});
+router_home.get('/otraRuta', controller_home.otraruta);
 
 // tambien es posible hacer que una variable sea exportable en NODE
 // module.exports = router_home;
