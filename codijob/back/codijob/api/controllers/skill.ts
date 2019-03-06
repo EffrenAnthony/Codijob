@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import { SkillsDTO } from '../dto/skills';
-import { Skill } from '../models/skills';
+import { SkillDTO } from '../dto/skill';
+import { Skill } from '../models/skill';
 
 
 
-export var controller_skills = {
+export var controller_skill = {
     getAll: (req:Request,res:Response)=>{
-        SkillsDTO.getAll().then((skills:Array<Skill>)=>{
+        SkillDTO.getAll().then((skills:Array<Skill>)=>{
             console.log(skills);  
             res.send(skills)          
         }).catch((error)=>{
@@ -27,5 +27,5 @@ export var controller_skills = {
 
     }
 
-// module.exports = controller_skills;
+// module.exports = controller_skill;
 

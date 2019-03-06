@@ -1,9 +1,9 @@
 
 import {connection} from '../../index';
-import { Skill } from '../models/skills';
+import { Skill } from '../models/skill';
 
 
-export class SkillsDTO{
+export class SkillDTO{
     static getAll():Promise<any>{
 
         let query = "SELECT * FROM t_skill";
@@ -24,10 +24,10 @@ export class SkillsDTO{
             
             result.forEach((skillDB:any) => {
                 let skill:Skill = new Skill();
-                skill.skill_id= skillDB.skill_id;
-                skill.skill_nom = skillDB.skill_nom;
-                skill.skill_desc = skillDB.skill_desc;
-                skill.skill_img = skillDB.skill_img;                
+                skill.skill_Id= skillDB.skill_id;
+                skill.skill_Nom = skillDB.skill_nom;
+                skill.skill_Desc = skillDB.skill_desc;
+                skill.skill_Img = skillDB.skill_img;                
                 skills.push(skill);
             });
 
