@@ -2,6 +2,7 @@
 import { router_home } from './api/routes/home';
 // importando la ruta de empresas
 import { router_empresa } from './api/routes/empresa';
+import { router_skills } from './api/routes/skills';
 //Importamos la libreria desde node modules (require para importar la libreria en node_modules)
 var express = require('express'); 
 // app es una instancia directa de express
@@ -31,6 +32,7 @@ const PUERTO = process.env.PORT || 3700;
 // seria => localhost:3700/api/otraruta
 app.use('/api',router_home)
 app.use('/api',router_empresa)
+app.use('/api',router_skills)
 // listen es para levantar el servidor web (lanza o ejecuta el servidor web)
 // parametros => puerto, callback para indicar si se ejecutó correctamente
 app.listen(PUERTO,()=>{
