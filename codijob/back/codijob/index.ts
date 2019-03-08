@@ -8,6 +8,14 @@ var express = require('express');
 // app es una instancia directa de express
 var app = express();
 
+// <---------------POST------------------>
+// ESTA CONFIGURACION DEBE IR ANTES DE CUALQUIER CONFIGURACION app
+// body-parser hace que se pueda ejecutar el metodo get y se guarde dentro de un arreglo llamado body
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+// <--------------- / POST------------------>
+
 // realizando la conexion a MySql
 var mysql = require ('mysql');
 export var connection = mysql.createConnection({
