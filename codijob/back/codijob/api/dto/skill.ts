@@ -1,6 +1,7 @@
 
 import { connection } from '../../index';
 import { Skill } from '../models/skill';
+import { resolve } from 'url';
 
 
 export class SkillDTO{
@@ -58,16 +59,16 @@ export class SkillDTO{
         });
     }
 
-    static update(skill:Skill){        
+    static update(skill:Skill):Promise<any>{        
         let query = "UPDATE `codijob`.`t_skill` SET `skill_nom` = '"+skill.skill_Nom+"', `skill_desc` = '"+skill.skill_Desc+"', `skill_img` = '"+skill.skill_Img+"' WHERE (`skill_id` = '"+skill.skill_Id+"')";
-        connection.query(query,(error:any,result:any)=>{
-            if(error){
-                console.log("Error al ejecutar");
-                console.log(error);
-            }
-            
-            console.log("SKILL ACTUALIZADO");
-            console.log(result);
+        return new Promise((resolve:any,reject:any)=>{
+            connection.query(query,(error:any,result:any)=>{
+                if(error){
+                    reject(error)
+                }
+                                
+                resolve(result);
+            })
         })
     }
 

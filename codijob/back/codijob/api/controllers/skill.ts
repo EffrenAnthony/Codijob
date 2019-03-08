@@ -58,8 +58,23 @@ export var controller_skill = {
         skill.skill_Desc = params.skill_desc;
         skill.skill_Img = params.skill_img;
         skill.skill_Id = params.skill_id;
-        SkillDTO.update(skill);
-        res.send("OK");
+
+        SkillDTO.update(skill).then((skill:Skill)=>{
+            let respuesta = {
+                mensaje: "Actualizado",
+                content:skill
+            }
+            res.status(205).send(respuesta);
+        }).catch((error)=>{
+            let respuesta = {
+                mensaje: "ERROR",
+                content:error
+            }
+            res.status(500).send(respuesta);
+        });
+
+
+        // res.send("OK");
     }
     // updateById: (req:Request,res:Response)=>{
     //     res.send("Actualziando un skill dado su ID");
