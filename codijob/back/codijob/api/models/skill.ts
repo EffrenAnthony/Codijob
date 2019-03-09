@@ -5,15 +5,35 @@ export var skill_model = (sequelize:any, type:any)=>{
         skill_id: {
             type: type.INTEGER,
             primaryKey: true,
-            autoIncrement: true
+            autoIncrement: true,
+            allowNull: false,
         },
-        skill_nom: type.STRING,
-        skill_desc: type.STRING,
-        skill_img: type.STRING
+        skill_nom: {
+            type: type.STRING,
+            allowNull: false
+        },
+        skill_desc: {
+            type: type.STRING,
+            allowNull: false
+        },
+        skill_img: {
+            type: type.STRING,
+            allowNull: false
         
-        }
+        },
+        
+    },
+    {
         // para que no se cree createAt y updateAt
-        // ,{
-        //  timestamps: false} 
-        );
+        
+        timestamps: true,
+
+        createAt: true,
+
+        updateAt: 'updateTimestamp',
+
+        deleteAt: 'destroyTime',
+
+        paranoid: true
+    });
 }
