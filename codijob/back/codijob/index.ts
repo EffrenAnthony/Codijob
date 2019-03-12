@@ -1,5 +1,7 @@
 // importando la ruta de skill
 import { router_skill } from './api/routes/skill';
+import { router_proyecto } from './api/routes/proyecto';
+import { router_proyectoSkill } from './api/routes/proyectoskill';
 
 //Importamos la libreria desde node modules (require para importar la libreria en node_modules)
 var express = require('express'); 
@@ -20,6 +22,8 @@ const PUERTO = process.env.PORT || 3700;
 //importando las rutas
 
 app.use('/api',router_skill)
+app.use('/api',router_proyecto)
+app.use('/api',router_proyectoSkill)
 
 // listen es para levantar el servidor web (lanza o ejecuta el servidor web)
 app.listen(PUERTO,()=>{ 

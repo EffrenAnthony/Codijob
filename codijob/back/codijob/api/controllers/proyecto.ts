@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
 
-import { Skill } from '../config/sequelize';
+import { Proyecto} from '../config/sequelize';
 
 
 
-export var controller_skill = {
+export var controller_proyecto = {
     getAll: (req:Request,res:Response)=>{       
-       Skill.findAll().then((skills:any)=>{
+       Proyecto.findAll().then((proyectos:any)=>{
             let response = {
                 message: "ok",
-                content: skills
+                content: proyectos
             }
             
             res.status(200).send(response);            
@@ -17,11 +17,11 @@ export var controller_skill = {
     },
 
     create: (req:Request, res:Response)=>{
-        
-        Skill.create(req.body).then((skillCreado:any)=>{
+        // req body son todos los campos que se envian, ya sea por postman o por el front
+        Proyecto.create(req.body).then((proyectoCreado:any)=>{
             let response = {
                 message: "created",
-                content: skillCreado
+                content: proyectoCreado
             }
             res.status(201).send(response)
         }).catch(()=>{
@@ -29,23 +29,23 @@ export var controller_skill = {
         })
     },
     update: (req:Request,res:Response)=>{     
-        Skill.update(
+        Proyecto.update(
             {
-                skill_desc: req.body.skill_desc,
-                skill_nom: req.body.skill_nom,
-                skill_img: req.body.skill_img
+                pro_desc: req.body.pro_desc,
+                pro_nom: req.body.pro_nom,
+                pro_img: req.body.pro_img
             },
             {    where: {
-                    skill_id: req.body.skill_id
+                    pro_id: req.body.pro_id
                 }
             }).then((respuesta:any)=>{
                 // respuesta[0] es 1 cuando se ha actualizado el registro correctamente
                 // respuesta[0] es 0 cuando hubo un error
                 if (respuesta[0]===1) { 
-                    Skill.findById(req.body.skill_id).then((skill:any)=>{
+                    Proyecto.findById(req.body.pro_id).then((proyecto:any)=>{
                         let response = {
                             message: "update",
-                            content: skill
+                            content: proyecto
                         }
                         res.status(200).send(response);
                     })                    
@@ -61,7 +61,7 @@ export var controller_skill = {
         })
     },
     delete:(req:Request,res:Response)=>{     
-        Skill.destroy()
+        Proyecto.destroy()
     }
 
 

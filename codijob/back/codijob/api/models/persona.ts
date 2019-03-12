@@ -1,23 +1,38 @@
 // definiendo un modelo
 // sequelize => la conexion a la base de datos
-export var skill_model = (sequelize:any, type:any)=>{
-    return sequelize.define("t_skill",{
-        skill_id: {
+export var persona_model = (sequelize:any, type:any)=>{
+    return sequelize.define("t_persona",{
+        per_id: {
             type: type.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false,
         },
-        skill_nom: {
+        per_nom: {
             type: type.STRING,
             allowNull: false
         },
-        skill_desc: {
+        per_ape: {
             type: type.STRING,
             allowNull: false
         },
-        skill_img: {
+        per_email: {
             type: type.STRING,
+            allowNull: false
+        
+        },
+        per_tel: {
+            type: type.STRING,
+            allowNull: false
+        
+        },
+        per_dni: {
+            type: type.STRING,
+            allowNull: false
+        
+        },
+        per_fech: {
+            type: type.DATE,
             allowNull: false
         
         },
@@ -27,7 +42,7 @@ export var skill_model = (sequelize:any, type:any)=>{
         // para que no se cree createAt y updateAt
         
         timestamps: true,
-        tableName: "t_skill",
+        tableName: "t_persona",
         createAt: true,
 
         updateAt: 'updateTimestamp',

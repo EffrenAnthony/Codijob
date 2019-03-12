@@ -3,6 +3,15 @@
 // udando el principio CODE FIRST
 
 import {skill_model} from '../models/skill'
+import{proyecto_model} from   '../models/proyecto'
+import{proyectoskill_model} from   '../models/proyectoskill'
+import {empresa_model} from '../models/empresa'
+import {persona_model} from '../models/persona'
+import {usuario_model} from '../models/usuario'
+import {imagenProyecto_model} from '../models/imagenProyecto'
+import {usuarioEmpresa_model} from '../models/usuarioEmpresa'
+import {usuarioSkill_model} from '../models/usuarioskill'
+import {usuarioProyecto_model} from '../models/usuarioproyecto'
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize('codijob2','root','punkAnthony95',{
@@ -19,12 +28,46 @@ const sequelize = new Sequelize('codijob2','root','punkAnthony95',{
 });
 
 export const Skill = skill_model(sequelize,Sequelize);
+export const Proyecto = proyecto_model(sequelize,Sequelize);
+export const ProyectoSkill = proyectoskill_model(sequelize,Sequelize);
+export const Empresa = empresa_model(sequelize,Sequelize);
+export const Persona = persona_model(sequelize,Sequelize);
+export const Usuario = usuario_model(sequelize,Sequelize);
+export const ImagenProyecto = imagenProyecto_model(sequelize,Sequelize);
+export const UsuarioEmpresa = usuarioEmpresa_model(sequelize,Sequelize);
+export const UsuarioSkill = usuarioSkill_model(sequelize,Sequelize);
+export const UsuarioProyecto = usuarioProyecto_model(sequelize,Sequelize);
+
+
+// Crea una clave foranea
+Usuario.belongsTo(Persona, {foreignKey:'per_id'});
+
+UsuarioSkill.belongsTo(Usuario, {foreignKey: 'usu_id'});
+UsuarioSkill.belongsTo(Skill, {foreignKey: 'skill_id'});
+
+ProyectoSkill.belongsTo(Skill, {foreignKey:'skill_id'});
+ProyectoSkill.belongsTo(Proyecto, {foreignKey:'pro_id'});
+
+UsuarioProyecto.belongsTo(Proyecto, {foreignKey: 'pro_id'});
+UsuarioProyecto.belongsTo(Usuario, {foreignKey: 'usu_id'});
+
+UsuarioEmpresa.belongsTo(Empresa, {foreignKey: 'emp_id'});
+UsuarioEmpresa.belongsTo(Usuario, {foreignKey: 'usu_id'});
+
+ImagenProyecto.belongsTo(Proyecto, {foreignKey: 'pro_id'});
+
+
+
+
 // force => true; cada vez que el proyecto inicie (npm start)
 //          toda la dara y tablas se van a crear nuevamente sin datos.
 // force => false; solo va a crear las tablas y/o campos que bno figuren actualmente
 //          en nuetra base de datos, los datos no se van a borrar.
-sequelize.sync({force:false}).then(()=>{
-    console.log("Base de datos creada con exito");    
+sequelize.query('SET FOREIGN_KEY_CHECKS = 0',{raw:true}).then(()=>{
+    sequelize.sync({force:false}).then(()=>{
+        console.log("Base de datos creada con exito");    
+    });
+
 });
 
 
