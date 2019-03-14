@@ -68,8 +68,26 @@ export var controller_proyectoSkill = {
 
     getSkillsByProyectoId: (req:Request, res:Response)=>{{
         // params se usa cuando es get y body cuando se quiere enviar como formulario en un post
-       console.log(req.params.pro_id);
-       res.send("OK");
+        ProyectoSkill.findAll(
+            
+        {
+            // incluirá la descripcion del skill
+            include:[{
+                model: Skill,
+                attributes: ['skill_nom','skill_desc']
+            },{
+                // incluirá la descripcion del proyecto
+                model: Proyecto,
+            }],
+            // buscar en la tabla proeyctoskill donde el parametro del proyecto_id sea igual al del proeycto id
+            where:{
+                pro_id: req.params.pro_id
+            }
+
+        }).then((response:any)=>{
+            res.send(response);
+        })
+        
        }
     }
 }

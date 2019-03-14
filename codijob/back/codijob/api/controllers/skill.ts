@@ -2,7 +2,10 @@ import { Request, Response } from 'express';
 
 import { Skill } from '../config/sequelize';
 
-
+// fs => libreria nativa de node para administrar los archivos del sistema
+// path => libreria nativa de node para manejar rutas
+var fs = require('fs');
+var path = require('path');
 
 export var controller_skill = {
     getAll: (req:Request,res:Response)=>{       
@@ -16,17 +19,25 @@ export var controller_skill = {
        })
     },
 
-    create: (req:Request, res:Response)=>{
+    create: (req:any, res:Response)=>{
         
-        Skill.create(req.body).then((skillCreado:any)=>{
-            let response = {
-                message: "created",
-                content: skillCreado
-            }
-            res.status(201).send(response)
-        }).catch(()=>{
+        // Skill.create(req.body).then((skillCreado:any)=>{
+        //     let response = {
+        //         message: "created",
+        //         content: skillCreado
+        //     }
+        //     res.status(201).send(response)
+        // }).catch(()=>{
 
-        })
+        // })
+
+        if(req.files){
+            console.log("tiene archivos");
+            res.send("tiene archivos");            
+        }else{
+            console.log("no tiene archivos");
+            res.send("no tiene archivos");   
+        }
     },
     update: (req:Request,res:Response)=>{     
         Skill.update(
