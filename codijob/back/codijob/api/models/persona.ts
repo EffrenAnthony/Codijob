@@ -1,7 +1,7 @@
 // definiendo un modelo
 // sequelize => la conexion a la base de datos
 export var persona_model = (sequelize:any, type:any)=>{
-    return sequelize.define("t_persona",{
+    let personaModel = sequelize.define("t_persona",{
         per_id: {
             type: type.INTEGER,
             primaryKey: true,
@@ -9,31 +9,39 @@ export var persona_model = (sequelize:any, type:any)=>{
             allowNull: false,
         },
         per_nom: {
-            type: type.STRING,
-            allowNull: false
+            type: type.STRING(50),
+            allowNull: false,
+            defaultValue: "sin nombre"
+
         },
         per_ape: {
             type: type.STRING,
-            allowNull: false
+            allowNull: false,
+            defaultValue: "sin apellido"
+
         },
         per_email: {
             type: type.STRING,
-            allowNull: false
+            allowNull: false,
+            defaultValue: "sin email"
         
         },
         per_tel: {
             type: type.STRING,
-            allowNull: false
+            allowNull: false,
+            defaultValue: "000000"
         
         },
         per_dni: {
             type: type.STRING,
-            allowNull: false
+            allowNull: false,
+            defaultValue: "00000000"
         
         },
         per_fech: {
             type: type.DATE,
-            allowNull: false
+            allowNull: false,
+            defaultValue: new Date
         
         },
         
@@ -51,4 +59,11 @@ export var persona_model = (sequelize:any, type:any)=>{
 
         paranoid: true
     });
+
+    // prototype es la manera como javascript crea clases
+    personaModel.prototype.saludar = function(){
+        console.log("---------------------------------\n"+this.per_nom + " te saluda");
+        
+    }
+    return personaModel;
 }

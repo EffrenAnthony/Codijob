@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import {controller_proyecto} from '../controllers/proyecto'
-
+ 
 export var router_proyecto = Router();
 
 

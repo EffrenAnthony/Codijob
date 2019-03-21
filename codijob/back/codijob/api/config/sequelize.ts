@@ -12,6 +12,7 @@ import {imagenProyecto_model} from '../models/imagenProyecto'
 import {usuarioEmpresa_model} from '../models/usuarioEmpresa'
 import {usuarioSkill_model} from '../models/usuarioskill'
 import {usuarioProyecto_model} from '../models/usuarioproyecto'
+
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize('codijob2','root','punkAnthony95',{

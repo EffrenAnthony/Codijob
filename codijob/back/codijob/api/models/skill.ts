@@ -6,19 +6,19 @@ export var skill_model = (sequelize:any, type:any)=>{
             type: type.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            allowNull: false,
+            allowNull: true,
         },
         skill_nom: {
             type: type.STRING,
-            allowNull: false
+            allowNull: true
         },
         skill_desc: {
             type: type.STRING,
-            allowNull: false
+            allowNull: true
         },
         skill_img: {
             type: type.STRING,
-            allowNull: false
+            allowNull: true
         
         },
         
@@ -36,4 +36,6 @@ export var skill_model = (sequelize:any, type:any)=>{
 
         paranoid: true
     });
+
+    return skill_model;
 }
