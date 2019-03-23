@@ -23,29 +23,32 @@
               <!-- TABS -->
               <div class="uou-tabs">
                 <ul class="tabs">
-                  <li><a href="#register">Register Now</a></li>
-                  <li class="active"><a href="#log-in">Member Login</a></li>
+                  <li [ngClass]= "{'active':switchLogin == true}"><a href="#" (click)="changeTab($event)">Register Now</a></li>
+                  <li [ngClass]= "{'active':switchLogin == false}"><a href="#" (click)="changeTab($event)">Member Login</a></li>
                 </ul>
                 
                 <!-- REGISTER -->
                 <div class="content">
-                  <div id="register">
+                  <!-- ng class da una clase al elelmento determinada por su componente ts o variable en este caso -->
+                  <div id="register" [ngClass]= "{'active':switchLogin == true}">
                     <form>
-                      <input type="text" placeholder="Full Name">
-                      <input type="email" placeholder="Email Address">
-                      <input type="text" placeholder="Phone">
-                      <input type="password" placeholder="Password">
-                      <button type="submit">Register</button>
+                      <input type="text" placeholder="Ingrese su nombre" [(ngModel)]= "objCredenciales.per_nom" name = "per_nom">
+                      <input type="email" placeholder="Ingrese su apellido"[(ngModel)]= "objCredenciales.per_ape" name = "per_ape">
+                      <input type="text" placeholder="Ingrese su E-mail"[(ngModel)]= "objCredenciales.per_email" name = "per_email">
+                      <input type="password" placeholder="Ingrese su password"[(ngModel)]= "objCredenciales.usu_pass" name = "usu_pass">
+                      <button (click)= "onRegister()">Register</button>
                       <div class="login-with"> <span>Or login with:</span> <a href="#."><i class="fa fa-facebook"></i></a> <a href="#."><i class="fa fa-google"></i></a> <a href="#."><i class="fa fa-linkedin"></i></a> </div>
                     </form>
                   </div>
                   
                   <!-- LOGIN -->
-                  <div id="log-in" class="active">
+                  <div id="log-in" [ngClass]= "{'active':switchLogin == false}">
                     <form>
-                      <input type="email" placeholder="Email Address">
-                      <input type="password" placeholder="Password">
-                      <button type="submit">Login</button>
+
+                      <input type="email" placeholder="Ingrese su Email" [(ngModel)] = "objCredenciales.per_email" name="per_email">
+                      <input type="password" placeholder="Ingrese su password" [(ngModel)] = "objCredenciales.usu_pass" name = "usu_pass">
+                      <button (click) = "login()">Login</button>
+
                       <div class="login-with"> <span>Or login with:</span> <a href="#."><i class="fa fa-facebook"></i></a> <a href="#."><i class="fa fa-google"></i></a> <a href="#."><i class="fa fa-linkedin"></i></a> </div>
                       <div class="forget">Forgot your password? <a href="#.">Click Here</a></div>
                     </form>

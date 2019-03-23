@@ -2,8 +2,9 @@ import {Response, Request} from 'express';
 import {Usuario} from '../config/sequelize';
 import {Persona} from '../config/sequelize';
 
-var fs = require('fs');
-var path = require('path');
+var jwt = require('jsonwebtoken');
+// var fs = require('fs');
+// var path = require('path');
 export var controller_usuario = {
     getAll: (req:Request, res:Response)=>{
         Usuario.findAll().then((usuarios:any)=>{
@@ -16,22 +17,40 @@ export var controller_usuario = {
     },
     create: (req:any , res:Response)=>{
         let per_id = req.params.per_id;
+        var objUsuario = Usuario.build(req.body);
 
         Persona.findById(per_id).then((persona:any)=>{
             if(persona){
-                var objUsuario = Usuario.build(req.body);
+                objUsuario.per_id = req.params.per_id;
                 objUsuario.setPassword(req.body.password);
                 return objUsuario.save();
             }
         }).then((usuarioCreado:any)=>{
-            let token = usuarioCreado.generateJWT();
+            return usuarioCreado.generateJWT();
+            
+        }).then((token:any)=>{
             let response = {
                 message: "created",
-                content: usuarioCreado,
+                content: objUsuario,
                 token: token
                 
             }
             res.status(201).send(response);
+        })
+    },
+
+    privado: (req:any, res:Response)=>{
+        // el error es de type script no de nodejs
+        jwt.verify(req.token,'sape',(err:any,payload:any)=>{
+            if(err){
+                res.status(403).send("Error colorao")
+            }else{
+                let response = {
+                    message: "validado",
+                    content: payload
+                };
+                res.status(200).send(response);
+            }
         })
     }
     // create: (req:any, res:Response)=>{

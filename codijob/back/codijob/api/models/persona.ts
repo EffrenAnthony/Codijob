@@ -23,7 +23,9 @@ export var persona_model = (sequelize:any, type:any)=>{
         per_email: {
             type: type.STRING,
             allowNull: false,
-            defaultValue: "sin email"
+            defaultValue: "sin email",
+            // esto hará que cada vez que se quiera crear un usuario con el mismo email no lo permita
+            unique: true
         
         },
         per_tel: {

@@ -2,6 +2,9 @@
 // sequelize => la conexion a la base de datos
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
+import {Persona} from '../config/sequelize'
+import { promises } from 'fs';
+import { resolveSoa } from 'dns';
 export var usuario_model = (sequelize:any, type:any)=>{
     let usuarioModel = sequelize.define("t_usuario",{
         usu_id: {
@@ -90,16 +93,27 @@ export var usuario_model = (sequelize:any, type:any)=>{
     };
 
     usuarioModel.prototype.generateJWT = function(){
-        let hoy = new Date();        
-        let payload = {
-            usu_id: this.usu_id,
-            exp: +hoy.getTime()+60000
+        return new Promise ((resolve,reject)=>{
+            Persona.findById(this.per_id).then((personaEncontrada:any)=>{
+                let payload = {
+                    usu_id: this.usu_id,
+                    per_nom_ape: personaEncontrada.per_nom + " " +personaEncontrada.per_ape,
+                    per_email: personaEncontrada.per_email
+                    
+                };
+                let token = jwt.sign(payload,'sape',{expiresIn: '20s'});
+    
+            resolve(token);
+            });
+
+        })
+        
+            // se asigna un tiempo de expiracion del token
+            // exp: +hoy.getTime()+60000 // no estamos seguros como funciona
         }
         // en sign manda el payload, es decir lo que uno quiere que vaya al token y el segundo campo es una contraseña, sifrada si uno quiere
-        let token = jwt.sign(payload,'sape');
-
-        return token;
+        // es una funcion practica comun el extraer la contraseña de un archivo externo a traves de la libreria fs
+        return usuarioModel;
+        
     }
 
-    return usuarioModel;
-}
