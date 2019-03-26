@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'app-home',
@@ -50,6 +49,9 @@ export class HomeComponent implements OnInit {
   login(){
     this._sAuth.login(this.objCredenciales).subscribe((response:any)=>{
       console.log(response);
+      this._sAuth.saveToken(response.token);
+      this.clearCredentials();
+
       
     })
   }

@@ -44,13 +44,57 @@ export var controller_auth = {
     login: (req:Request, res:Response)=>{
         let objPersona = Persona.build();
         let objUsuario = Usuario.build();
-        Persona.findAll({
+        Persona.findOne({
             where: {
                 per_email: req.body.per_email
             }
         }).then((personaEncontrada:any)=>{
-            console.log(personaEncontrada);
+            if  (personaEncontrada){
+                objPersona = personaEncontrada;                   
+                return Usuario.findOne({
+                    where:{
+                        per_id: objPersona.per_id
+                    }
+                });  
+            }else{
+                let response = {
+                    message: 'error',
+                    content: 'El email no esta registrado'
+                };
+                res.status(500).send(response)
+                throw ('El email no esta registrado')
+            }                     
+        }).then((usuarioEncontrado:any)=>{
+            if(usuarioEncontrado){
+                objUsuario = usuarioEncontrado;
+                if(objUsuario.validPassword(req.body.usu_pass)==true){
+                    // usuario con password autentico
+                    return objUsuario.generateJWT();
+                }else{
+                    let response = {
+                        message: 'error',
+                        content:'contraseña incorrecta'
+                    }
+                    res.status(500).send(response);
+                }
+            }else{
+                let response = {
+                    message:'error',
+                    content: 'No existe un usuario par esa persona'
+                }
+                res.status(500).send(response);
+                throw ('No existe un usuario par esa persona')
+            }
+        }).then((token:any)=>{
+            let response = {
+                message:'Success',
+                token:token
+            };
+            res.status(200).send(response);
+        }).catch((error:any)=>{
+            console.log("error");
+            console.log(error);
             
-        })
+        });
     }
 }
