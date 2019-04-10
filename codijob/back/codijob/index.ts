@@ -5,6 +5,7 @@ import { router_proyectoSkill } from './api/routes/proyectoskill';
 import { router_persona } from './api/routes/persona';
 import { router_usuario } from './api/routes/usuario';
 import { router_auth } from './api/routes/auth';
+import { router_home } from './api/routes/home';
 
 //Importamos la libreria desde node modules (require para importar la libreria en node_modules)
 var express = require('express'); 
@@ -34,6 +35,7 @@ const PUERTO = process.env.PORT || 3700;
 //importando las rutas
 
 app.use('/api',router_skill)
+app.use('/',router_home)
 app.use('/api',router_proyecto)
 app.use('/api',router_proyectoSkill)
 app.use('/api',router_persona)

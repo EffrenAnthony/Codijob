@@ -15,7 +15,8 @@ const routes:Routes = [
 
 ]
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  // use hash para poder subir front al servidor
+  imports: [RouterModule.forRoot(routes,{useHash:true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

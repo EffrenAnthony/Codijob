@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { variables } from '../config/variables';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class AuthService {
 
   registrar(credenciales){
     let misHeaders = new HttpHeaders().set('Content-Type','application/json');
-    return this._http.post('http://localhost:3700/api/auth/register',
+    return this._http.post(`${variables.serverBackProduction}/api/auth/register`,
                     credenciales,
                     {
                       headers:misHeaders
@@ -70,7 +72,7 @@ export class AuthService {
 
   login(credenciales){
     let misHeaders = new HttpHeaders().set('Content-Type','application/json');
-    return this._http.post('http://localhost:3700/api/auth/login',
+    return this._http.post(`${variables.serverBackProduction}/api/auth/login`,
                     credenciales,
                     {
                       headers:misHeaders

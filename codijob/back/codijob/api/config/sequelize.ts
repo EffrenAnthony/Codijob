@@ -15,8 +15,8 @@ import {usuarioProyecto_model} from '../models/usuarioproyecto'
 
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('codijob2','root','punkAnthony95',{
-    host: 'localhost',
+const sequelize = new Sequelize('pyaePU6hjB','pyaePU6hjB','DWCN8Ef4E2',{
+    host: 'remotemysql.com',
     dialect: 'mysql',
     operatorAliases: false,
     pool: {

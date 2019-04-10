@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { variables } from '../config/variables';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class SkillService {
   constructor(private _http:HttpClient) { }
   getAll():Observable<any>{
-    let url = "http://localhost:3700/api/skill/getAll";
+    let url = `${variables.serverBackProduction}/api/skill/getAll`;
     return this._http.get(url);
   }
 }
